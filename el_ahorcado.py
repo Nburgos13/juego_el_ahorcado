@@ -55,8 +55,34 @@ def ahorcado():
         # Si la letra escogida por el usuario est+a en el
         # abecedario y no esta en el conjunto de letras
         # que ya se han ingresado, se añade la letra al conjunto
-        # de letras ingresadas. 
+        # de letras ingresadas.
         if letra_usuario in abecedario - letras_adivinadas:
             letras_adivinadas.add(letra_usuario)
 
+            # Si la letra esta en la palabra,
+            # quitar la letra del conjunto de letras
+            # pendientes por adivinar.
+            # Si no esta en la palabra, quitar una vida.
+            if letra_usuario in letras_por_adivinar:
+                letras_por_adivinar.remove(letra_usuario)
+                print("")
+            else:
+                vidas = vidas - 1
+                print(f"\n Tu letra, {letra_usuario} no esta en la palabra.")
+        # Si la letra escogida por el usuario ya fue ingresada
+        elif letra_usuario in letras_adivinadas:
+            print("\nYa escogiste esa letra. Por favor escoge una letra nueva.")
+        else:
+            print("\n Esta letra no es valida.")
 
+    # El juego llega a esta linea cuando se adivina todas las letras de la palabra
+    # o cuando se agotan las vidas del jugador
+
+    if vidas == 0:
+        print(vidas_diccionario_visual[vidas])
+        print(f"¡Ahorcado! Perdiste. Lo lamento mucho. La palabra era: {palabra}")
+    else:
+        print(f"¡Excelente! ¡Adivinaste la palabra {palabra}!")
+
+
+ahorcado()
